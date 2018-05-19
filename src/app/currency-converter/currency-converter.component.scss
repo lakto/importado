@@ -1,0 +1,73 @@
+.form {
+  width: 220px;
+  margin: 48px auto;
+
+  .line {
+    width: 100%;
+    display: inline-block;
+    margin: 24px 0;
+
+    .line-title {
+      line-height: 3;
+    }
+
+    .line-element {
+      display: inline-flex;
+
+      &.full {
+        width: 100%;
+
+
+
+        .mat-button-toggle {
+          width: 50%;
+          text-align: center;
+        }
+      }
+
+      &.gc-small {
+        width: 38%;
+      }
+
+      &.gc-large {
+        width: 62%;
+      }
+
+      button {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.result {
+  width: 320px;
+  margin: 48px auto;
+
+  .line {
+    box-sizing: border-box;
+    display: flex;
+    margin: 6px auto 12px auto;
+  }
+
+
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.mat-input-element {
+  text-align: center;
+}
+
+.select-currency {
+  border-radius: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  height: 36px;
+
+  align-items: baseline;
+  box-sizing: border-box;
+}
+

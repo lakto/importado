@@ -1,0 +1,99 @@
+<form [formGroup]="cForm" class="form">
+
+  <!-- line 1: select country -->
+  <div class="line">
+    <mat-card-subtitle class="line-title">{{labels.country}}</mat-card-subtitle>
+    <mat-button-toggle-group [formControlName]="'country'" (change)="updateCurrency()" class="line-element full">
+      <mat-button-toggle *ngFor="let c of countries; let first = first" [checked]="first" [value]="c.tax">{{c.label}}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <!-- line 2: set product value and select currency -->
+  <div class="line">
+    <mat-form-field class="line-element large">
+      <input matInput type="number"
+             [formControlName]="'productValue'"
+             [placeholder]="labels.productValue">
+      <mat-hint *ngIf="formErrors.productValue">
+        {{ formErrors.productValue }}
+      </mat-hint>
+    </mat-form-field>
+
+    <button mat-icon-button matSuffix [matMenuTriggerFor]="currencyMenu" class="select-currency">
+      {{selectedCurr}}
+    </button>
+
+    <mat-menu #currencyMenu="matMenu" xPosition="before">
+      <button mat-menu-item *ngFor="let curr of currencies" (click)="setCurrency(curr)">{{curr}}</button>
+    </mat-menu>
+  </div>
+
+  <!-- line 3: select date (optional) and submit data -->
+  <div class="line">
+    <mat-form-field class="line-element full">
+      <input matInput [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a date" [formControlName]="'date'"
+             class="gc-large">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+
+  <div class="line">
+    <div class="line-element full">
+      <button mat-raised-button [color]="'primary'" (click)="submitData()" [disabled]="!cForm.valid">
+        {{labels.submit}}
+        <mat-icon matSuffix>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+</form>
+
+<mat-divider></mat-divider>
+
+<div *ngIf="cForm.valid" class="result">
+
+  <!-- amount in chf -->
+  <div class="line" mat-card-title>
+    <span>Amount in CHF</span>
+    <span class="fill-remaining-space"></span>
+    <span>{{amount | number:'0.2-2'}}</span>
+  </div>
+
+  <!-- post tax -->
+  <div class="line" mat-card-title>
+    <span>Post tax</span>
+    <span class="fill-remaining-space"></span>
+    <span>{{postTax | number:'0.2-2'}}</span>
+  </div>
+  <div class="line" mat-card-subtitle>
+    <span>
+      {{cForm.controls['country'].value | number:'0.2-2'}} + 3% of {{amount | number:'0.2-2'}}
+    </span>
+  </div>
+
+  <!-- customs tax -->
+  <div class="line" mat-card-title>
+    <span>Customs tax</span>
+    <span class="fill-remaining-space"></span>
+    <span>{{customsTax | number:'0.2-2'}}</span>
+  </div>
+  <div class="line" mat-card-subtitle>
+    <span>
+      7.7% of {{amount + postTax | number:'0.2-2'}}
+    </span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- total -->
+  <div class="line" mat-card-title>
+    <span>Total</span>
+    <span class="fill-remaining-space"></span>
+    <span>{{total | number:'0.2-2'}}</span>
+  </div>
+
+</div>
