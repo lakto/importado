@@ -769,7 +769,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    currencyconverterapi: 'http://free.currencyconverterapi.com/api/v5/'
+    currencyconverterapi: 'https://free.currencyconverterapi.com/api/v5/'
 };
 /*
  * In development mode, to ignore zone related error stack frames such as
