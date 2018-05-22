@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  currencyconverterapi: ''
+  currencyconverterapi: 'https://free.currencyconverterapi.com/api/v5/'
 };
