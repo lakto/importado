@@ -39,6 +39,8 @@ export class CurrencyConverterComponent implements OnInit {
   postTax: number;
   postTaxPerCountry: number;
   customsTax: number;
+  falseDeclaration: boolean;
+  fine: number = 13;
   total: number;
 
   countries: any = [
@@ -50,7 +52,6 @@ export class CurrencyConverterComponent implements OnInit {
       'label': 'other',
       'tax': 16
     }
-
   ];
 
   currencies: string[] = [
@@ -85,7 +86,8 @@ export class CurrencyConverterComponent implements OnInit {
     this.cForm = new FormGroup({
       productValue: new FormControl({value: 100, disabled: false}, Validators.required),
       date: new FormControl({value: this.maxDate, disabled: true}, Validators.required),
-      country: new FormControl({value: this.countries[0].tax, disabled: false}, Validators.required)
+      country: new FormControl({value: this.countries[0].tax, disabled: false}, Validators.required),
+      declaration: new FormControl({value: this.falseDeclaration, disabled: false}),
     });
 
   }
@@ -135,9 +137,15 @@ export class CurrencyConverterComponent implements OnInit {
 
     const productValue: number = this.cForm.controls['productValue'].value;
 
+    let additionalFee: number = 0;
+
     this.amount = val * productValue;
 
-    this.postTax = this.cForm.controls['country'].value + (this.amount * 3 / 100);
+    if (this.cForm.controls['declaration'].value === true) {
+        additionalFee = this.fine;
+    }
+
+    this.postTax = this.cForm.controls['country'].value + (this.amount * 3 / 100) + additionalFee;
 
     this.customsTax = (this.amount + this.postTax) * 7.7 / 100;
 

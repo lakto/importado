@@ -12,9 +12,7 @@
   <!-- line 2: set product value and select currency -->
   <div class="line">
     <mat-form-field class="line-element large">
-      <input matInput type="number"
-             [formControlName]="'productValue'"
-             [placeholder]="labels.productValue">
+      <input matInput type="number" [formControlName]="'productValue'" [placeholder]="labels.productValue">
       <mat-hint *ngIf="formErrors.productValue">
         {{ formErrors.productValue }}
       </mat-hint>
@@ -32,12 +30,17 @@
   <!-- line 3: select date (optional) and submit data -->
   <div class="line">
     <mat-form-field class="line-element full">
-      <input matInput [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a date" [formControlName]="'date'"
-             class="gc-large">
+      <input matInput [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a date" [formControlName]="'date'" class="gc-large">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker disabled="false"></mat-datepicker>
     </mat-form-field>
+  </div>
 
+  <!-- line 4: in case of wrong declaration -->
+  <div class="line">
+    <div class="line-element full">
+      <mat-checkbox [formControlName]="'declaration'">Insufficient declaration</mat-checkbox>
+    </div>
   </div>
 
   <div class="line">
@@ -73,6 +76,9 @@
     <span>
       {{cForm.controls['country'].value | number:'0.2-2'}} + 3% of {{amount | number:'0.2-2'}}
     </span>
+  </div>
+  <div class="line" mat-card-subtitle>
+    <span *ngIf="cForm.controls['declaration'].value"> + {{fine | number:'0.2-2'}}</span>
   </div>
 
   <!-- customs tax -->
