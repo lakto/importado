@@ -22,7 +22,7 @@ export class CurrencyService {
    */
   calCur(from_to: string, date?: string): Observable<any> {
 
-    const url: string = environment.currencyconverterapi + 'convert?q=' + from_to + '&compact=y' + '&date=' + date;
+    const url: string = environment.currencyconverterapi + 'convert?q=' + from_to + '&compact=y' + '&date=' + date + '&apiKey=' + environment.apikey;
 
     return this.http.get(url, {observe: 'response'}).pipe(
       map((response: HttpResponse<any>): any => {
