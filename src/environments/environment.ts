@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  currencyconverterapi: 'http://free.currencyconverterapi.com/api/v5/'
+  currencyconverterapi: 'http://free.currencyconverterapi.com/api/v6/',
+  apikey: ''
 };
 
 /*
